@@ -36,7 +36,7 @@ QUANTIZATION = None
 def initialize_models():
     """Loads and caches all the required models and tokenizers."""
     ip = IndicProcessor(inference=True)
-    en_to_ind_ckpt_dir = "ai4bharat/indictrans2-en-indic-1B"
+    en_to_ind_ckpt_dir = "ai4bharat/indictrans2-en-indic-dist-200M"
     en_to_ind_tokenizer = AutoTokenizer.from_pretrained(en_to_ind_ckpt_dir, trust_remote_code=True)
     en_to_ind_model = AutoModelForSeq2SeqLM.from_pretrained(
         en_to_ind_ckpt_dir,
@@ -45,7 +45,7 @@ def initialize_models():
         quantization_config=None,
     )
 
-    ind_to_en_ckpt_dir = "ai4bharat/indictrans2-indic-en-1B"
+    ind_to_en_ckpt_dir = "ai4bharat/indictrans2-en-indic-dist-200M"
     ind_to_en_tokenizer = AutoTokenizer.from_pretrained(ind_to_en_ckpt_dir, trust_remote_code=True)
     ind_to_en_model = AutoModelForSeq2SeqLM.from_pretrained(
         ind_to_en_ckpt_dir,
@@ -145,6 +145,7 @@ with main_tab2:
                 st.info(reverse_itrans)
         except Exception as e:
             st.error(f"An error occurred during transliteration: {e}")
+
 
 
 
