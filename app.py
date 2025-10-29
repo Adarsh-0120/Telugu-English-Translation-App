@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
 import os
+import streamlit as st
 from huggingface_hub import login
 
-# Authenticate using Streamlit secret
-login(token=os.environ["HF_TOKEN"])
+# Check if token is available
+hf_token = os.environ.get("HF_TOKEN")
+
+if hf_token:
+    login(token=hf_token)
+    st.success("✅ Hugging Face login successful!")
+else:
+    st.error("❌ Hugging Face token not found. Please set HF_TOKEN in Streamlit secrets.")
 import streamlit as st
 import torch
 from transformers import AutoModelForSeq2SeqLM, BitsAndBytesConfig, AutoTokenizer
@@ -138,5 +145,6 @@ with main_tab2:
                 st.info(reverse_itrans)
         except Exception as e:
             st.error(f"An error occurred during transliteration: {e}")
+
 
 
